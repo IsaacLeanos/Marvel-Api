@@ -1,7 +1,7 @@
-const router=require('express').Router()
-import ax
+// const router=require('express').Router()
+// import ax
 
 
-router.get(``,(req,res)=>{
+// router.get(``,(req,res)=>{
 
-})
+// })

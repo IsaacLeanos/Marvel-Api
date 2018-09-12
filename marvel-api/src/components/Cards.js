@@ -5,6 +5,16 @@ class Cards extends React.Component{
 
     state={}
 
+    componentDidMount(){
+        this.fetchData()
+    }
+
+    fetchData(){
+        let name='thor'
+        fetch(`http://gateway.marvel.com/v1/public/characters?name=${name}&ts=1&apikey=7c1f96a95f1a624e70019ff7c43bd5c3&hash=dfddec6c4f447f7fe958fba16b941320`)
+        .then((res)=>{console.log(res.json())})
+    }
+
     render(){
         return(
         <div>
