@@ -6,52 +6,34 @@ class Search extends React.Component{
 
     state={
         query:'',
-        characterID:null
     }
-
-    // componentDidMount(){
-    //     this.fetchData()
-    // }
 
     getCharId(){
         let name=this.state.query
+        if(!name)return;
         axios.get(`http://gateway.marvel.com/v1/public/characters?nameStartsWith=${name}&ts=1&apikey=7c1f96a95f1a624e70019ff7c43bd5c3&hash=dfddec6c4f447f7fe958fba16b941320`)
         .then((res)=>{
             let id=res.data.data.results[0].id
-            this.setState({characterID:id})
             console.log('id1',id)
-            return id
+            this.props.searchedChar(id)
         })
         .catch((e)=>{
             let falseChar=this.state.query
             let correctedChar=falseChar.split('').slice(0, -1).join('')
             this.setState({query:correctedChar})
         })
-        .then((id)=>{
-            console.log('id2',id)
-            axios.get(`http://gateway.marvel.com/v1/public/characters?characterId=${id}&ts=1&apikey=7c1f96a95f1a624e70019ff7c43bd5c3&hash=dfddec6c4f447f7fe958fba16b941320`)
-            .then(()=>{
-                console.log('here')
-            })
-            .catch((e)=>{console.log('err2',e)})
-            // this.getCharComics(id)
-        })
-        .catch((e)=>{console.log('err3',e)})
     }
-
-    // getCharComics(id){
-    //    return axios.get(`http://gateway.marvel.com/v1/public/characters?characterId=${id}&ts=1&apikey=7c1f96a95f1a624e70019ff7c43bd5c3&hash=dfddec6c4f447f7fe958fba16b941320`)
-    // }
 
     onChange=(e)=>{
-        this.setState({query:e.target.value})
         console.log(this.state.query)
+        this.setState({query:e.target.value})
     }
-
+    
     submit=(e)=>{
         e.preventDefault()
+        this.getCharId()
     }
-
+    
     onKeyUp=(e)=>{
         this.getCharId()
     }
