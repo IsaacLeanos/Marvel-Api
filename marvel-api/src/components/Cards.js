@@ -33,7 +33,8 @@ class Cards extends React.Component{
         axios.get(`https://gateway.marvel.com:443/v1/public/characters/${id}/comics?&ts=1&apikey=7c1f96a95f1a624e70019ff7c43bd5c3&hash=dfddec6c4f447f7fe958fba16b941320`)
         .then((res)=>{
             console.log(res.data.data.results[0].thumbnail.path)
-            let results=res.data.data.results[0].thumbnail.path+'portrait_xlarge.jpg'/'
+            let result=res.data.data.results[0].thumbnail.path
+            let results=result+'portrait_xlarge.jpg'
             this.setState({results:results})
         })
         .catch((e)=>{
@@ -51,6 +52,7 @@ class Cards extends React.Component{
         <div>
 
         {this.state.characterID&&<p>{this.state.characterID}</p>}
+        {this.state.results&&<p>{this.state.results}</p>}
 
         <Col l={3}>
         <Card  header={<CardTitle reveal image={this.state.results} waves='light'/>}
