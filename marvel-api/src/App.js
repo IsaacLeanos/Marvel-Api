@@ -8,7 +8,7 @@ import{Row}from'react-materialize'
 class App extends React.Component {
 
   state={
-    character:1009351
+    character:''
   }
 
   searchedChar=(characterID)=>{
