@@ -15,6 +15,14 @@ class App extends React.Component {
     this.setState({character:characterID})
   }
 
+  componentDidMount(){
+    console.log('app mounted')
+  }
+
+  componentWillUnmount(){
+    console.log('app unmounted')
+}
+
   render() {
     return (
       <div               className='container'>

@@ -8,19 +8,28 @@ class Search extends React.Component{
         query:'',
     }
 
+    componentDidMount(){
+        console.log('search mounted')
+        // this.getCharId()
+    }
+
+    componentWillUnmount(){
+        console.log('search unmounted')
+    }
+
     getCharId(){
         let name=this.state.query
         if(!name)return;
-        axios.get(`http://gateway.marvel.com/v1/public/characters?nameStartsWith=${name}&ts=1&apikey=7c1f96a95f1a624e70019ff7c43bd5c3&hash=dfddec6c4f447f7fe958fba16b941320`)
+        axios.get(`http://gateway.marvel.com/v1/public/characters?name=${name}&ts=1&apikey=7c1f96a95f1a624e70019ff7c43bd5c3&hash=dfddec6c4f447f7fe958fba16b941320`)
         .then((res)=>{
             let id=res.data.data.results[0].id
-            console.log('id1',id)
             this.props.searchedChar(id)
         })
         .catch((e)=>{
-            let falseChar=this.state.query
-            let correctedChar=falseChar.split('').slice(0, -1).join('')
-            this.setState({query:correctedChar})
+            // let falseChar=this.state.query
+            // let correctedChar=falseChar.split('').slice(0, -1).join('')
+            // this.setState({query:correctedChar})
+            console.log('search e')
         })
     }
 
