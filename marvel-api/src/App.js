@@ -13,6 +13,7 @@ class App extends React.Component {
 
   searchedChar=(characterID)=>{
     this.setState({character:characterID})
+    console.log('searchedCar')
   }
 
   componentDidMount(){
@@ -31,7 +32,7 @@ class App extends React.Component {
       <Search            searchedChar={this.searchedChar}/>
       
       </Row>
-      <Row style={{'border':'red solid 1px'}}>
+      <Row style={{'border':'green solid 1px'}} className={'row'}>
       
       <Cards             characterID={this.state.character}/>
       
