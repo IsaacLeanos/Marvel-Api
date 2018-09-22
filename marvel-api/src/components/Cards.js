@@ -12,21 +12,23 @@ class Cards extends React.Component{
 
     componentDidMount(){
         console.log('cards mounted')
-        // this.getCharComics()
     }
-
+    
     // componentWillUnmount(){
-    //     console.log('cards unmounted')
-    // }
-
-    componentWillReceiveProps(props){
+        //     console.log('cards unmounted')
+        // }
+        
+        componentWillReceiveProps(props){
         this.setState({characterID:props.characterID})
         console.log('cards new prop',props.characterID)
+        this.getCharComics()
     }
+    // this.getCharComics()
         
+
+    // memory leak?
     componentDidUpdate(){
         console.log('cards updated')
-        this.getCharComics()
     }
 
     getCharComics=()=>{
@@ -45,7 +47,7 @@ class Cards extends React.Component{
         const results=this.state.results
         const data=results.map((i)=>{
                 return(
-                    <Col xs={12} s={12} l={3} key={i.id}>
+                    <Col xs={6} s={6} l={3} key={i.id}>
                     <Card                                   header={<CardTitle reveal image={i.thumbnail.path                                                          +'/portrait_uncanny.jpg'} waves='light'/>}
                                                             title={i.title}
                                                             reveal={<p>{i.description}</p>}
@@ -55,7 +57,7 @@ class Cards extends React.Component{
                 )
         })
         return(
-        <div >
+        <div                                                style={{'border':'purple solid 1px'}}>
         {this.state.characterID&&<p>{this.state.characterID}</p>}
         {data}
         </div>

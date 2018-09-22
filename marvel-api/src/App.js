@@ -18,6 +18,7 @@ class App extends React.Component {
 
   componentDidMount(){
     console.log('app mounted')
+    this.setState({character:1009664})
   }
 
   componentWillUnmount(){
