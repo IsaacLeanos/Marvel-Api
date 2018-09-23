@@ -6,7 +6,7 @@ import './Card.css';
 class Cards extends React.Component{
     
     state={
-        characterID:this.props.characterID,
+        characterID:'',
         results:[]
     }
 
@@ -19,32 +19,36 @@ class Cards extends React.Component{
         // }
         
         componentWillReceiveProps(props){
-        this.setState({characterID:props.characterID})
-        console.log('cards new prop',props.characterID)
-        this.getCharComics()
-    }
-    // this.getCharComics()
+            this.setState({characterID:props.character})
+            console.log('cards new prop',props.character)
+        }
         
-
-    // memory leak?
-    componentDidUpdate(){
-        console.log('cards updated')
-    }
-
-    getCharComics=()=>{
-        let id=this.state.characterID
-        axios.get(`https://gateway.marvel.com:443/v1/public/characters/${id}/comics?limit=25&ts=1&apikey=7c1f96a95f1a624e70019ff7c43bd5c3&hash=dfddec6c4f447f7fe958fba16b941320`)
-        .then((res)=>{
-            let results=res.data.data.results
-            this.setState({results:results})
-        })
-        .catch((e)=>{
+        
+        getCharComics=()=>{
+            console.log('get comics called')
+            let id=this.state.characterID
+            axios.get(`https://gateway.marvel.com:443/v1/public/characters/${id}/comics?limit=25&ts=1&apikey=7c1f96a95f1a624e70019ff7c43bd5c3&hash=dfddec6c4f447f7fe958fba16b941320`)
+            .then((res)=>{
+                let results=res.data.data.results
+                this.setState({results:results})
+            })
+            .catch((e)=>{
                 console.log('cards error')
-        })
-    }
+            })
+        }
         
-    render(){
-        const results=this.state.results
+        componentDidUpdate(prevProps,prevState,nextProps) {
+            //     // only update chart if the data has changed
+                if(prevState.characterID!==this.state.characterID){
+                        // this.setState({characterID:nextProps})
+                        this.getCharComics()
+                        console.log('pp',prevProps,'ps',prevState)
+                        // return true;
+                    }
+                }
+                
+                render(){
+                    let results=this.state.results
         const data=results.map((i)=>{
                 return(
                     <Col xs={6} s={6} l={3} key={i.id}>
