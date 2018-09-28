@@ -1,6 +1,7 @@
 import React from 'react'
 import{Col,Card,CardTitle}from'react-materialize'
 import axios from 'axios'
+import keys from '../secret'
 import './Card.css';
 
 class Cards extends React.Component{
@@ -27,7 +28,7 @@ class Cards extends React.Component{
     getCharComics=()=>{
         console.log('get comics called')
         let id=this.state.characterID
-        axios.get(`https://gateway.marvel.com:443/v1/public/characters/${id}/comics?limit=25&ts=1&apikey=7c1f96a95f1a624e70019ff7c43bd5c3&hash=dfddec6c4f447f7fe958fba16b941320`)
+        axios.get(`https://gateway.marvel.com:443/v1/public/characters/${id}/comics?limit=25&ts=1&apikey=${keys.apiKey}&hash=${keys.hashKey}`)
         .then((res)=>{
             let results=res.data.data.results
             this.setState({results:results})

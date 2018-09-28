@@ -4,7 +4,7 @@ import axios from 'axios'
 import Search from './components/Search'
 import Cards from './components/Cards'
 import{Row}from'react-materialize'
-
+import keys from './secret'
 
 
 
@@ -32,7 +32,7 @@ searchChange=(e)=>{
 
 getCharId=(query)=>{
   if(!query)return;
-  axios.get(`http://gateway.marvel.com/v1/public/characters?name=${query}&ts=1&apikey=7c1f96a95f1a624e70019ff7c43bd5c3&hash=dfddec6c4f447f7fe958fba16b941320`)
+  axios.get(`http://gateway.marvel.com/v1/public/characters?name=${query}&ts=1&apikey=${keys.apiKey}&hash=${keys.hashKey}`)
   .then((res)=>{
     this.setState({characterID:res.data.data.results[0].id,
     image:res.data.data.results[0].thumbnail.path+'/portrait_uncanny.jpg'
