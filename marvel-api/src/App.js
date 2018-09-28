@@ -6,11 +6,14 @@ import Cards from './components/Cards'
 import{Row}from'react-materialize'
 
 
+
+
 class App extends React.Component {
 
   state={
     query:'',
-    characterID:null
+    characterID:null,
+    image:''
   }
 
   componentDidMount(){
@@ -28,10 +31,12 @@ searchChange=(e)=>{
 }
 
 getCharId=(query)=>{
-  // if(!name)return;
+  if(!query)return;
   axios.get(`http://gateway.marvel.com/v1/public/characters?name=${query}&ts=1&apikey=7c1f96a95f1a624e70019ff7c43bd5c3&hash=dfddec6c4f447f7fe958fba16b941320`)
   .then((res)=>{
-    this.setState({characterID:res.data.data.results[0].id})
+    this.setState({characterID:res.data.data.results[0].id,
+    image:res.data.data.results[0].thumbnail.path+'/portrait_uncanny.jpg'
+    })
   })
   .catch((e)=>{
     // let falseChar=this.state.query
@@ -42,8 +47,14 @@ getCharId=(query)=>{
 }
 
   render() {
+    // var css = {backgroundImage: 'url('+backgroundURL+') no-repeat center center', backgroundSize: backgroundSize, backgroundColor: backgroundColor};
+    var css={
+      backgroundImage: `url(${this.state.image})`,
+      // backgroundSize:'cover',
+      backgroundPosition:'center'
+    }
     return (
-      <div               className='container'>
+      <div               className='container backgroundImage' style={css}>
       <Row style={{'border':'red solid 1px'}}>
 
       <Search            searchChange={this.searchChange}/>
