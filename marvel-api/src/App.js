@@ -2,8 +2,8 @@ import React from 'react';
 import './App.css';
 import axios from 'axios'
 import Search from './components/Search'
-import Cards from './components/Cards'
-import{Row}from'react-materialize'
+// import Cards from './components/Cards'
+import{Row,Col,Card,CardTitle,Container}from'react-materialize'
 import keys from './secret'
 
 
@@ -13,7 +13,9 @@ class App extends React.Component {
   state={
     query:'',
     characterID:null,
-    image:''
+    image:'',
+    // characterID:'',
+    results:[]
   }
 
   componentDidMount(){
@@ -37,6 +39,10 @@ getCharId=(query)=>{
     this.setState({characterID:res.data.data.results[0].id,
     image:res.data.data.results[0].thumbnail.path+'/portrait_uncanny.jpg'
     })
+    return res.data.data.results[0].id
+  })
+  .then((id)=>{
+    this.getCharComics(id)
   })
   .catch((e)=>{
     // let falseChar=this.state.query
@@ -46,29 +52,57 @@ getCharId=(query)=>{
   })
 }
 
+getCharComics=(id)=>{
+  console.log('get comics called')
+  axios.get(`https://gateway.marvel.com:443/v1/public/characters/${id}/comics?limit=6&ts=1&apikey=${keys.apiKey}&hash=${keys.hashKey}`)
+  .then((res)=>{
+      let results=res.data.data.results
+      this.setState({results:results})
+  })
+  .catch((e)=>{
+      console.log('cards error')
+  })
+}
+
+
+
   render() {
     // var css = {backgroundImage: 'url('+backgroundURL+') no-repeat center center', backgroundSize: backgroundSize, backgroundColor: backgroundColor};
-    var css={
-      backgroundImage: `url(${this.state.image})`,
-      // backgroundSize:'cover',
-      backgroundPosition:'center'
-    }
+    // var css={
+    //   backgroundImage: `url(${this.state.image})`,
+    //   backgroundSize:'cover',
+    //   backgroundPosition:'center'
+    // }
+    let results=this.state.results
+    const data=results.map((i)=>{
+            return(
+                <Col xs={6} s={6} l={3} key={i.id}>
+                <Card                                   header={<CardTitle reveal image={i.thumbnail.path                                                              +'/portrait_uncanny.jpg'} waves='light'/>}
+                                                        title='some title lorddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd'
+                                                        reveal={<p>{i.description}</p>}
+                                                        className={'cards'}>
+                </Card>
+                </Col>
+            )
+    })
+    // style={css}
     return (
-      <div               className='container backgroundImage' style={css}>
-      <Row style={{'border':'red solid 1px'}}>
+      <div               className='container backgroundImage' style={{'border':'green solid 1px'}}>
 
+      <Row               className={Row} style={{'border':'red solid 1px'}}>
       <Search            searchChange={this.searchChange}/>
-      
       </Row>
-      <Row style={{'border':'green solid 1px'}} className={'row'}>
-      
-      <Cards             character={this.state.characterID}/>
-      
+
+      <Row               className={Row} style={{'border':'red solid 1px'}}>
+      {this.state.characterID&&<p>{this.state.characterID}</p>}
+      {data}
       </Row>
+
       </div>
       )
     }
   }
+  // character={this.state.characterID}
   
   export default App;
   

@@ -2,12 +2,28 @@ background{
   background-position: center
 }
 
-.container{
-  padding-top:40px;
+
+
+/* .container{ */
+  /* padding-top:40px; */
+/* } */
+
+/* .row{
+  height:450px;
+} */
+
+.card-title{
+  /* height: 15px; */
+  overflow: auto;
 }
 
-.row{
-  height:50px;
+/* .cards{
+  height:200px;
+} */
+
+.cards:hover{
+  box-shadow: 5px 10px #080303;
+  transform: scale(0.5) translate(-5%, -5%);
 }
 
 
