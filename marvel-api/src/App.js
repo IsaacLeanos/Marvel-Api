@@ -54,7 +54,7 @@ getCharId=(query)=>{
 
 getCharComics=(id)=>{
   console.log('get comics called')
-  axios.get(`https://gateway.marvel.com:443/v1/public/characters/${id}/comics?limit=6&ts=1&apikey=${keys.apiKey}&hash=${keys.hashKey}`)
+  axios.get(`https://gateway.marvel.com:443/v1/public/characters/${id}/comics?limit=16&ts=1&apikey=${keys.apiKey}&hash=${keys.hashKey}`)
   .then((res)=>{
       let results=res.data.data.results
       this.setState({results:results})
@@ -67,27 +67,26 @@ getCharComics=(id)=>{
 
 
   render() {
-    // var css = {backgroundImage: 'url('+backgroundURL+') no-repeat center center', backgroundSize: backgroundSize, backgroundColor: backgroundColor};
     // var css={
-    //   backgroundImage: `url(${this.state.image})`,
-    //   backgroundSize:'cover',
-    //   backgroundPosition:'center'
+    //   image: `url(${this.state.image})`,
     // }
+
+    // style={css}
     let results=this.state.results
     const data=results.map((i)=>{
             return(
                 <Col xs={6} s={6} l={3} key={i.id}>
-                <Card                                   header={<CardTitle reveal image={i.thumbnail.path                                                              +'/portrait_uncanny.jpg'} waves='light'/>}
-                                                        title='some title lorddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd'
-                                                        reveal={<p>{i.description}</p>}
+                <Card                                   header={<CardTitle reveal image={i.thumbnail.path                                                               +'/portrait_uncanny.jpg'} waves='light'/>}
+                                                        // title={i.title}
+                                                        reveal={<div><h3>{i.title}</h3><p>{i.description}</p></div>}
                                                         className={'cards'}>
                 </Card>
                 </Col>
             )
     })
-    // style={css}
+    
     return (
-      <div               className='container backgroundImage' style={{'border':'green solid 1px'}}>
+      <div               >
 
       <Row               className={Row} style={{'border':'red solid 1px'}}>
       <Search            searchChange={this.searchChange}/>
