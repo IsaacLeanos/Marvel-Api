@@ -4,13 +4,19 @@ background{
 
 
 /* .card-content{
-  height:120px;
-
+  padding:0;
 } */
+.card-image > .card-content{
+  padding: 0px;
+}
 
 h3{
-  font-size: 30px;
+  overflow-x: hidden;
+  font-size: 25px;
+  /*padding-top: 15px;
+  padding-right: 18px; */
 }
+
 
 
 .cards:hover{

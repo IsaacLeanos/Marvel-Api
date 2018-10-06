@@ -76,10 +76,9 @@ getCharComics=(id)=>{
     const data=results.map((i)=>{
             return(
                 <Col xs={6} s={6} l={3} key={i.id}>
-                <Card                                   header={<CardTitle reveal image={i.thumbnail.path                                                               +'/portrait_uncanny.jpg'} waves='light'/>}
+                <Card                                   className={'card-image card-content'} header={<CardTitle reveal image={i.thumbnail.path                                                               +'/portrait_uncanny.jpg'} waves='light'/>}
                                                         // title={i.title}
-                                                        reveal={<div><h3>{i.title}</h3><p>{i.description}</p></div>}
-                                                        className={'cards'}>
+                                                        reveal={<div><h3>{i.title}</h3><p>{i.description}</p></div>}>
                 </Card>
                 </Col>
             )
