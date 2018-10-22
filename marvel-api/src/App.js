@@ -1,10 +1,12 @@
 import React from 'react';
+require('dotenv').config()
+import './index.css';
 import './App.css';
 import axios from 'axios'
 import Search from './components/Search'
 // import Cards from './components/Cards'
 import{Row,Col,Card,CardTitle,Container}from'react-materialize'
-import keys from './secret'
+// import keys from './secret'
 
 
 
@@ -34,7 +36,7 @@ searchChange=(e)=>{
 
 getCharId=(query)=>{
   if(!query)return;
-  axios.get(`http://gateway.marvel.com/v1/public/characters?name=${query}&ts=1&apikey=${keys.apiKey}&hash=${keys.hashKey}`)
+  axios.get(`http://gateway.marvel.com/v1/public/characters?name=${query}&ts=1&apikey=${process.env.REACT_APP_AK}&hash=${process.env.REACT_APP_HK}`)
   .then((res)=>{
     this.setState({characterID:res.data.data.results[0].id,
     image:res.data.data.results[0].thumbnail.path+'/portrait_uncanny.jpg'
@@ -54,7 +56,7 @@ getCharId=(query)=>{
 
 getCharComics=(id)=>{
   console.log('get comics called')
-  axios.get(`https://gateway.marvel.com:443/v1/public/characters/${id}/comics?limit=16&ts=1&apikey=${keys.apiKey}&hash=${keys.hashKey}`)
+  axios.get(`https://gateway.marvel.com:443/v1/public/characters/${id}/comics?limit=16&ts=1&apikey=${process.env.REACT_APP_AK}&hash=${process.env.REACT_APP_HK}`)
   .then((res)=>{
       let results=res.data.data.results
       this.setState({results:results})
