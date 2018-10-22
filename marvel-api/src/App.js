@@ -37,7 +37,7 @@ searchChange=(e)=>{
 
 getCharId=(query)=>{
   if(!query)return;
-  axios.get(`http://gateway.marvel.com/v1/public/characters?name=${query}&ts=1&apikey=${process.env.REACT_APP_AK}&hash=${process.env.REACT_APP_HK}`)
+  axios.get(`https://gateway.marvel.com/v1/public/characters?name=${query}&ts=1&apikey=${process.env.REACT_APP_AK}&hash=${process.env.REACT_APP_HK}`)
   .then((res)=>{
     this.setState({characterID:res.data.data.results[0].id,
     image:res.data.data.results[0].thumbnail.path+'/portrait_uncanny.jpg'
