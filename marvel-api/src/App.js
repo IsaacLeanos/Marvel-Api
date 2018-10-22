@@ -1,3 +1,4 @@
+/* eslint-disable import/first */
 import React from 'react';
 require('dotenv').config()
 import './index.css';
