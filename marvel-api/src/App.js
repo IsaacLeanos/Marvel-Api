@@ -1,13 +1,13 @@
-/* eslint-disable import/first */
 import React from 'react';
-require('dotenv').config()
 import './index.css';
 import './App.css';
 import axios from 'axios'
 import Search from './components/Search'
-// import Cards from './components/Cards'
 import{Row,Col,Card,CardTitle,Container}from'react-materialize'
+/* eslint-disable import/first */
+require('dotenv').config()
 // import keys from './secret'
+// import Cards from './components/Cards'
 
 
 
